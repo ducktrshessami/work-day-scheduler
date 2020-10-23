@@ -1,10 +1,15 @@
 (function() { // Enclose scope for debugging purposes
 
-    buildPage();
+    var main = $("main.container");
 
+    buildPage();
+    main.click(handleClick); // Set save event listener
+
+    /*
+    Display date and business-hour time-blocks
+    */
     function buildPage() {
         var now = moment();
-        var main = $("main.container");
 
         $("#currentDay").text(now.format("dddd, MMMM Do")); // Set current day
 
@@ -45,11 +50,10 @@
 
             /*
             One could abuse scope by putting the event listener here and just reference the
-            block and description variables inside an arrow function.
+            block and description variables inside an arrow function. This could reduce load time
+            when saving, but would also increase memory usage I think.
             */
         }
-
-        main.click(handleClick); // Set save event listener
     }
 
     function handleClick(event) {
