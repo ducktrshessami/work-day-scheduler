@@ -20,8 +20,8 @@
         $("#currentDay").text(currentTime.format("dddd, MMMM Do")); // Set current day
 
         // Check for new day
-        // if (planData.date != now.format("DDD")) {
-        //     planData = {date: now.format("DDD")};
+        // if (planData.date != currentTime.format("DDD")) {
+        //     planData = {date: currentTime.format("DDD")};
         //     update();
         // }
         /*
@@ -84,6 +84,12 @@
             The function contained an if/else tree. This seemed redundant.
             */
         }
+        /*
+        Furthermore, I'm unsure whether it would be better to grab all the elements at once with
+        $(".time-block > .description") and handle it afterwards. This would require looping over
+        the object rather than the hours, and instead the program grabs the hour from the parent's
+        data-value attribute.
+        */
     }
 
     /*
@@ -106,6 +112,7 @@
         let now = moment();
         if (now.hour() != currentTime.hour()) {
             currentTime = now;
+            checkDate();
             updateRelativeClasses();
         }
     }
