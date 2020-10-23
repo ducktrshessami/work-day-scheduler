@@ -20,6 +20,8 @@
             let description = $("<textarea class='description col-md-10'></textarea>");
             let button = $("<button class='saveBtn col-md-1'></button>");
 
+            description.val(localStorage.getItem("planHour" + i)); // Get saved data
+
             // Time is relative
             if (i < now.hour()) {
                 description.addClass("past");
