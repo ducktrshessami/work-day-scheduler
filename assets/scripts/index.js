@@ -48,26 +48,13 @@
 
             description.val(planData["hour" + i]); // Get saved data
 
-            // Time is relative
-            if (i < currentTime.hour()) {
-                description.addClass("past");
-            }
-            else if (i > currentTime.hour()) {
-                description.addClass("future");
-            }
-            else {
-                description.addClass("present");
-            }
-            /*
-            At first this if/else tree was a switch statement with a function in the expression.
-            The function contained an if/else tree. This seemed redundant.
-            */
-
             // Append elements
             block.append(hour);
             block.append(description);
             block.append(button);
             mainEl.append(block);
+
+            updateRelativeClasses(); // Update styling classes
 
             /*
             One could abuse scope by putting the event listener here and just reference the
@@ -80,7 +67,23 @@
     /*
     */
     function updateRelativeClasses() {
-        
+        for (let i = 9; i < 18; i++) {
+            let description = $(".time-block[data-value='" + i + "'] > .description");
+
+            if (i < currentTime.hour()) {
+                description.attr("class", "description past col-md-10");
+            }
+            else if (i > currentTime.hour()) {
+                description.attr("class", "description future col-md-10");
+            }
+            else {
+                description.attr("class", "description present col-md-10");
+            }
+            /*
+            At first this if/else tree was a switch statement with a function in the expression.
+            The function contained an if/else tree. This seemed redundant.
+            */
+        }
     }
 
     /*
