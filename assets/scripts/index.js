@@ -8,26 +8,43 @@
 
         $("#currentDay").text(now.format("dddd, MMMM Do")); // Set current day
 
-        for (var i = 9; i < 18; i++) { // Make time blocks
-            let block = $(`
-                <section class="time-block row">
-                    <div class="hour col-md-1">
-                        <span>` + moment().hour(i).format("hA") + `</span>
-                    </div>
-                    <textarea class="description col-md-10"></textarea>
-                    <button class="saveBtn col-md-1"></button>
-                </section>
+        // Make time blocks
+        for (var i = 9; i < 18; i++) {
+            // Create elements
+            let block = $("<section class='time-block row' data-value='" + i + "'></section");
+            let hour = $(`
+                <div class="hour col-md-1">
+                    <span>` + moment().hour(i).format("hA") + `</span>
+                </div>
             `);
-            if (i < now.hour()) { // 
-                $(".description", block).addClass("past");
+            let description = $("<textarea class='description col-md-10'></textarea>");
+            let button = $("<button class='saveBtn col-md-1'></button>");
+
+            // Time is relative
+            if (i < now.hour()) {
+                description.addClass("past");
             }
             else if (i > now.hour()) {
-                $(".description", block).addClass("future");
+                description.addClass("future");
             }
             else {
-                $(".description", block).addClass("present");
+                description.addClass("present");
             }
+            /*
+            At first this if/else tree was a switch statement with a function in the expression.
+            The function contained an if/else tree. This seemed redundant.
+            */
+
+            // Append elements
+            block.append(hour);
+            block.append(description);
+            block.append(button);
             main.append(block);
+
+            /*
+            One could abuse scope by putting the event listener here and just reference the
+            block and description variables inside an arrow function.
+            */
         }
 
         main.click(handleClick); // Set save event listener
@@ -35,7 +52,8 @@
 
     function handleClick(event) {
         if (event.target.matches("button")) {
-            console.log($(".description", event.target.parentNode).val());
+            let hour = event.target.parentElement.getAttribute("data-value");
+            localStorage.setItem("planHour" + hour, $(".description", event.target.parentElement).val());
         }
     }
 
