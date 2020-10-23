@@ -1,18 +1,26 @@
 (function() { // Enclose scope for debugging purposes
 
-    var main = $("main.container");
+    let now = moment();
+    let mainEl = $("main.container");
 
-    buildPage();
-    main.click(handleClick); // Set save event listener
+    checkDate();
+    buildTimeBlocks();
+    mainEl.click(handleClick); // Set save event listener
 
     /*
-    Display date and business-hour time-blocks
     */
-    function buildPage() {
-        var now = moment();
+    function checkDate() {
+        let day = now.format("dddd, MMMM Do");
 
-        $("#currentDay").text(now.format("dddd, MMMM Do")); // Set current day
+        $("#currentDay").text(day); // Set current day
 
+        // check for new day
+    }
+
+    /*
+    Display business-hour time-blocks
+    */
+    function buildTimeBlocks() {
         // Make time blocks
         for (var i = 9; i < 18; i++) {
             // Create elements
@@ -46,7 +54,7 @@
             block.append(hour);
             block.append(description);
             block.append(button);
-            main.append(block);
+            mainEl.append(block);
 
             /*
             One could abuse scope by putting the event listener here and just reference the
@@ -56,6 +64,8 @@
         }
     }
 
+    /*
+    */
     function handleClick(event) {
         if (event.target.matches("button")) {
             let hour = event.target.parentElement.getAttribute("data-value");
