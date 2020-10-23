@@ -1,20 +1,33 @@
 (function() { // Enclose scope for debugging purposes
 
-    let now = moment();
-    let mainEl = $("main.container");
+    let now = moment(); // Get current date
+    let mainEl = $("main.container"); // Get time-block container
+    //let interval = setInterval(dynamicRelativity, 1000); // Interval to check event relativity
+    let planData = localStorage.getItem("planData") ? JSON.parse(localStorage.getItem("planData")) : {date: now.format("DDD")}; // Get stored data
+    /*
+    The interval is commented out as it was not requested by the client. It was written anyways
+    because it seemed like something someone would want.
+    */
 
     checkDate();
     buildTimeBlocks();
     mainEl.click(handleClick); // Set save event listener
 
     /*
+    Display current date and clear plan for new day
     */
     function checkDate() {
-        let day = now.format("dddd, MMMM Do");
+        $("#currentDay").text(now.format("dddd, MMMM Do")); // Set current day
 
-        $("#currentDay").text(day); // Set current day
-
-        // check for new day
+        // Check for new day
+        // if (planData.date != now.format("DDD")) {
+        //     planData = {date: now.format("DDD")};
+        //     update();
+        // }
+        /*
+        This functionality is also commented out but written for the same reasons as the interval
+        above.
+        */
     }
 
     /*
@@ -33,7 +46,7 @@
             let description = $("<textarea class='description col-md-10'></textarea>");
             let button = $("<button class='saveBtn col-md-1'></button>");
 
-            description.val(localStorage.getItem("planHour" + i)); // Get saved data
+            description.val(planData["hour" + i]); // Get saved data
 
             // Time is relative
             if (i < now.hour()) {
@@ -69,8 +82,15 @@
     function handleClick(event) {
         if (event.target.matches("button")) {
             let hour = event.target.parentElement.getAttribute("data-value");
-            localStorage.setItem("planHour" + hour, $(".description", event.target.parentElement).val());
+            update(hour, $(".description", event.target.parentElement).val());
         }
+    }
+
+    /*
+    */
+    function update(hour, data) {
+        planData["hour" + hour] = data;
+        localStorage.setItem("planData", JSON.stringify(planData));
     }
 
 })();
