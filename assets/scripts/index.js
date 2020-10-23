@@ -1,9 +1,9 @@
 (function() { // Enclose scope for debugging purposes
 
-    let now = moment(); // Get current date
+    let currentTime = moment(); // Get current date
     let mainEl = $("main.container"); // Get time-block container
     //let interval = setInterval(dynamicRelativity, 1000); // Interval to check event relativity
-    let planData = localStorage.getItem("planData") ? JSON.parse(localStorage.getItem("planData")) : {date: now.format("DDD")}; // Get stored data
+    let planData = localStorage.getItem("planData") ? JSON.parse(localStorage.getItem("planData")) : {date: currentTime.format("DDD")}; // Get stored data
     /*
     The interval is commented out as it was not requested by the client. It was written anyways
     because it seemed like something someone would want.
@@ -17,7 +17,7 @@
     Display current date and clear plan for new day
     */
     function checkDate() {
-        $("#currentDay").text(now.format("dddd, MMMM Do")); // Set current day
+        $("#currentDay").text(currentTime.format("dddd, MMMM Do")); // Set current day
 
         // Check for new day
         // if (planData.date != now.format("DDD")) {
@@ -49,10 +49,10 @@
             description.val(planData["hour" + i]); // Get saved data
 
             // Time is relative
-            if (i < now.hour()) {
+            if (i < currentTime.hour()) {
                 description.addClass("past");
             }
-            else if (i > now.hour()) {
+            else if (i > currentTime.hour()) {
                 description.addClass("future");
             }
             else {
@@ -79,6 +79,12 @@
 
     /*
     */
+    function updateRelativeClasses() {
+        
+    }
+
+    /*
+    */
     function handleClick(event) {
         if (event.target.matches("button")) {
             let hour = event.target.parentElement.getAttribute("data-value");
@@ -91,6 +97,14 @@
     function update(hour, data) {
         planData["hour" + hour] = data;
         localStorage.setItem("planData", JSON.stringify(planData));
+    }
+
+    function dynamicRelativity() {
+        let now = moment();
+        if (now.hour() != currentTime.hour()) {
+            currentTime = now;
+            updateRelativeClasses();
+        }
     }
 
 })();
