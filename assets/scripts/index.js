@@ -2,7 +2,7 @@
 
     let currentTime = moment(); // Get current date
     let mainEl = $("main.container"); // Get time-block container
-    //let interval = setInterval(dynamicRelativity, 1000); // Interval to check event relativity
+    // let interval = setInterval(dynamicRelativity, 1000); // Interval to check event relativity
     let planData = localStorage.getItem("planData") ? JSON.parse(localStorage.getItem("planData")) : {date: currentTime.format("DDD")}; // Get stored data
     /*
     The interval is commented out as it was not requested by the client. It was written anyways
@@ -22,6 +22,7 @@
         // Check for new day
         // if (planData.date != currentTime.format("DDD")) {
         //     planData = {date: currentTime.format("DDD")};
+        //     buildTimeBlocks();
         //     update();
         // }
         /*
@@ -34,6 +35,8 @@
     Display business-hour time-blocks
     */
     function buildTimeBlocks() {
+        mainEl.html(""); // Clear container of anything else
+        
         // Make time blocks
         for (var i = 9; i < 18; i++) {
             // Create elements
