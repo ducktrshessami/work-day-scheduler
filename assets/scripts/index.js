@@ -10,15 +10,13 @@
 
         for (var i = 9; i < 18; i++) { // Make time blocks
             let block = $(`
-                <div class="time-block row">
+                <section class="time-block row">
                     <div class="hour col-md-1">
                         <span>` + moment().hour(i).format("hA") + `</span>
                     </div>
                     <textarea class="description col-md-10"></textarea>
-                    <button class="saveBtn col-md-1">
-                        <i>Save</i>
-                    </button>
-                </div>
+                    <button class="saveBtn col-md-1"></button>
+                </section>
             `);
             if (i < now.hour()) { // 
                 $(".description", block).addClass("past");
@@ -30,6 +28,14 @@
                 $(".description", block).addClass("present");
             }
             main.append(block);
+        }
+
+        main.click(handleClick); // Set save event listener
+    }
+
+    function handleClick(event) {
+        if (event.target.matches("button")) {
+            console.log($(".description", event.target.parentNode).val());
         }
     }
 
