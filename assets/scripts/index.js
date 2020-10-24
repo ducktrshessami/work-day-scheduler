@@ -60,9 +60,9 @@
             updateRelativeClasses(); // Update styling classes
 
             /*
-            One could abuse scope by putting the event listener here and just reference the
-            block and description variables inside an arrow function. This could reduce load time
-            when saving, but would also increase memory usage I think.
+            One could abuse scope by putting the event listener here and just reference the block
+            and description variables from here. This could reduce load time when saving, but
+            would also increase memory usage I think.
             */
         }
     }
