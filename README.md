@@ -12,7 +12,7 @@ Notes can be saved and stored locally.
 
 - Stored data cleared at midnight
 
-![The one and only screenshot](./assets/images/screenshot1.png)
+![The one and only screenshot](./assets/images/sc1.png)
 
 ###### ~Only one screenshot doesn't need a collapsable section right?~
 
