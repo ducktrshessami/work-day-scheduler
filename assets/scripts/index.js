@@ -47,7 +47,7 @@
                 </div>
             `);
             let description = $("<textarea class='description col-md-10'></textarea>");
-            let button = $("<button class='saveBtn col-md-1'></button>");
+            let button = $("<button class='saveBtn col-md-1'><span>🖪</span></button>");
 
             description.val(planData["hour" + i]); // Get saved data
 
