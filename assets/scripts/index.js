@@ -68,6 +68,7 @@
     }
 
     /*
+    Update time blocks with time relative color classes
     */
     function updateRelativeClasses() {
         for (let i = 9; i < 18; i++) {
@@ -96,6 +97,9 @@
     }
 
     /*
+    Handle time block click events to trigger note storage
+    @params:
+    event - a click event
     */
     function handleClick(event) {
         let button = targetCheck(event.target);
@@ -106,6 +110,12 @@
     }
 
     /*
+    Check if an element is the descendant of a button
+    @params:
+    elem - a DOM element
+    @returns:
+    a button DOM element if successful
+    or undefined if unsuccessful
     */
     function targetCheck(elem) {
         if (elem == document.body) {
@@ -120,19 +130,26 @@
     }
 
     /*
+    Update a specific hour's local storage data
+    @params:
+    hour - the hour number to be updated
+    data - the data stored to that hour
     */
     function update(hour, data) {
         planData["hour" + hour] = data;
         localStorage.setItem("planData", JSON.stringify(planData));
     }
 
-    function dynamicRelativity() {
-        let now = moment();
-        if (now.hour() != currentTime.hour()) {
-            currentTime = now;
-            checkDate();
-            updateRelativeClasses();
-        }
-    }
+    /*
+    An interval function to update time block colors as hours pass
+    */
+    // function dynamicRelativity() {
+    //     let now = moment();
+    //     if (now.hour() != currentTime.hour()) {
+    //         currentTime = now;
+    //         checkDate();
+    //         updateRelativeClasses();
+    //     }
+    // }
 
 })();
