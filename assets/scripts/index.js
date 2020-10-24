@@ -98,9 +98,24 @@
     /*
     */
     function handleClick(event) {
-        if (event.target.matches("button")) {
-            let hour = event.target.parentElement.getAttribute("data-value");
-            update(hour, $(".description", event.target.parentElement).val());
+        let button = targetCheck(event.target);
+        if (button) {
+            let hour = button.parentElement.getAttribute("data-value");
+            update(hour, $(".description", button.parentElement).val());
+        }
+    }
+
+    /*
+    */
+    function targetCheck(elem) {
+        if (elem == document.body) {
+            return;
+        }
+        else if (elem.matches("button")) {
+            return elem;
+        }
+        else {
+            return targetCheck(elem.parentElement);
         }
     }
 
