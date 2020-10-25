@@ -10,7 +10,7 @@ Notes can be saved and stored locally.
 
 - Hourly color-coding updates
 
-- Stored data cleared at midnight
+- Stored data cleared and date changed at midnight
 
 ![The one and only screenshot](./assets/images/sc1.png)
 
